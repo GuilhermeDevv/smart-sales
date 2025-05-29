@@ -1,0 +1,130 @@
+.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  align-items: stretch;
+  grid-auto-rows: minmax(600px, auto);
+  padding-bottom: 2rem;
+}
+
+.gridItem {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  gap: 2rem;
+}
+.offer {
+  background: rgba(75, 49, 242, 0.155);
+  border: solid 2px rgb(34, 20, 125);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0.5rem 2rem;
+  border-radius: 4px;
+  gap: 1rem;
+  flex: 1;
+}
+
+.another_offer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: rgba(75, 49, 242, 0.155);
+  border: solid 2px rgb(34, 20, 125);
+  padding: 1rem 2rem;
+  border-radius: 4px;
+  gap: 1rem;
+  max-height: 20%;
+  height: 100%;
+}
+
+.offer hr {
+  width: 100%;
+}
+
+.image {
+  position: relative;
+  min-width: 100px;
+  min-height: 100px;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #fff;
+  text-align: center;
+}
+
+.specification {
+  font-size: 1.2rem;
+  color: #fff;
+  text-align: center;
+  max-width: 100%;
+  margin: 0.5rem 0;
+}
+
+.price {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #fff;
+  text-align: center;
+}
+
+.button {
+  width: 100%;
+  padding: 0.5rem;
+  background-color: rgb(34, 20, 125);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: background-color 0.3s;
+}
+
+.button:hover {
+  background-color: rgb(50, 35, 170);
+}
+
+.top {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 1rem;
+  color: #fff;
+  font-weight: bold;
+}
+
+.middle {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.middle_left {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.middle_right {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  color: #fff;
+  font-weight: bold;
+}

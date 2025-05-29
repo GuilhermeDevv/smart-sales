@@ -1,0 +1,316 @@
+.Container {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: 2;
+  overflow: hidden;
+}
+
+.Content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  max-height: 90%;
+  padding: 28px 20px;
+  width: 70%;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  border: solid 1px rgba(0, 0, 0, 0.426);
+  border-radius: 6px;
+  gap: 22px;
+}
+
+.ContentDark {
+  background-color: rgb(29, 31, 32);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 28px 20px;
+  max-height: 90%;
+  width: 70%;
+  height: 90%;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  border: solid 1px rgba(0, 0, 0, 0.426);
+  border-radius: 6px;
+  gap: 22px;
+}
+
+.Hr {
+  border: 1px solid #cccccc6d;
+  margin: 0;
+}
+.HrDark {
+  border: 1px solid #ffffff86;
+  margin: 0;
+}
+
+.Close {
+  color: #3d008c;
+  cursor: pointer;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+}
+.CloseDark {
+  color: rgb(170, 106, 255);
+  cursor: pointer;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+}
+
+.Top,
+.TopDark {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+}
+
+.Top strong {
+  font-size: 26px;
+  font-weight: 600;
+  color: #3d008c;
+}
+
+.TopDark strong {
+  font-size: 26px;
+  font-weight: 600;
+  color: rgb(170, 106, 255);
+}
+
+.Title {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.Top strong {
+  font-size: 26px;
+  font-weight: 600;
+  color: #3d008c;
+}
+
+.Text {
+  font-weight: 500;
+  color: #3d008c;
+  text-transform: capitalize;
+  display: flex;
+  align-items: center;
+}
+.TextDark {
+  color: rgb(170, 106, 255);
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-align: center;
+  text-transform: capitalize;
+  display: flex;
+  align-items: center;
+
+}
+
+.Selects {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+@media (width <= 1920px) {
+  .Selects {
+    overflow-y: auto;
+    height: calc(100% - 230px);
+  }
+}
+
+.Selects::-webkit-scrollbar {
+  width: 8px;
+}
+.Selects::-webkit-scrollbar-thumb {
+  background-color: rgb(49, 0, 112);
+  border-radius: 4px;
+}
+.Selects::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.Selects::-webkit-scrollbar-corner {
+  background-color: transparent;
+}
+
+.Selects > div {
+  width: fit-content;
+  height: fit-content;
+  box-sizing: border-box;
+}
+
+.ContainerSelect {
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.Select {
+  width: 100%;
+  min-width: 310px;
+  max-width: 310px;
+  flex: 1;
+}
+
+.SelectTop > div > div:last-child {
+  top: -600% !important;
+}
+.Select ul {
+  max-height: 155px !important;
+}
+
+.SelectDark {
+  width: 100%;
+  min-width: 310px;
+  max-width: 310px;
+  flex: 1;
+  color: #fff;
+  --rmsc-main: #0943a2 !important;
+  --rmsc-main: #093f99 !important;
+  --rmsc-hover: #1f2123 !important;
+  --rmsc-selected: #26292b !important;
+  --rmsc-border: #3e4446 !important;
+  --rmsc-gray: #484e51 !important;
+  --rmsc-gray: #b2aca2 !important;
+  --rmsc-gray: #484e51 !important;
+  --rmsc-bg: #181a1b !important;
+}
+
+.SelectDark ul {
+  max-height: 155px !important;
+}
+
+.SelectDark input[type="text"] {
+  color: #fff;
+}
+
+.ConfirmarHierarquia {
+  padding: 8px 8px;
+  background-color: #3d008c;
+  color: #fff;
+  border-radius: 4px;
+  font-weight: bold;
+  width: fit-content;
+  height: fit-content;
+  text-align: center;
+  align-self: center;
+  border: none;
+  cursor: pointer;
+}
+
+.ConfirmarHierarquia:disabled {
+  background-color: #3d008c91;
+  cursor: not-allowed;
+}
+
+.DisabledSelect {
+  --rmsc-bg: #cccccc94 !important;
+}
+
+.DisabledSelectDark {
+  --rmsc-bg: rgba(204, 204, 204, 0.17) important;
+}
+
+.Send {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  background-color: #3d008c;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 10px 0;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.3s;
+  border: none;
+}
+.SendDark {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  background-color: #310070;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 10px 0;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.3s;
+  border: none;
+}
+/* BUTTON DESABILITADO */
+.Send:disabled {
+  background-color: #3d008c91;
+  cursor: not-allowed;
+}
+.SendDark:disabled {
+  background-color: rgba(49, 0, 112, 0.57);
+  cursor: not-allowed;
+}
+.Cancel {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  background-color: #fff;
+  color: #3d008c;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 10px 0;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.3s;
+  border: solid 1px #3d008c;
+}
+
+.CancelDark {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  background-color: #310070;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 10px 0;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.3s;
+  border: solid 1px #310070;
+}
+
+.ContainerButtons {
+  display: flex;
+  gap: 10px;
+  width: calc(100% - 40px);
+  justify-content: space-between;
+}
+
+.SelectEmpty > div {
+  border: solid 1px rgb(255, 0, 0) !important;
+}

@@ -1,0 +1,32 @@
+.DatePicker {
+  max-height: 48px;
+  width: 100%;
+}
+
+.DatePicker input {
+  padding: 0;
+  min-height: 48px;
+  width: 100%;
+  padding-left: 8px;
+  font-size: 16px;
+}
+
+.DatePicker input::placeholder {
+  font-size: 14px;
+}
+.DatePicker input:focus {
+  color: #666; /* Altere para a cor desejada */
+  font-size: 14px; /* Altere para o tamanho desejado */
+}
+.DatePicker .MuiInputBase-input {
+  padding: 0;
+  max-height: 48px;
+}
+
+.DatePicker .MuiInputBase-formControl {
+  border: none;
+}
+
+.DatePicker fieldset {
+  border: solid 1px transparent !important;
+}

@@ -1,0 +1,164 @@
+.container {
+  min-width: 100%;
+  min-height: calc(100svh - 50px);
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  & svg:hover {
+    cursor: pointer;
+  }
+}
+.content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+.left {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+}
+
+.sales_info {
+  position: relative;
+  flex: 2;
+  height: 60svh;
+  width: 100%;
+}
+
+.right {
+  width: 100%;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background: rgba(75, 49, 242, 0.155);
+  border: solid 2px rgb(34, 20, 125);
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.form h1 {
+  color: #fff;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.formGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.formGroup label {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  text-wrap: nowrap;
+}
+
+.formGroup input[type="text"] {
+  padding: 0.2rem;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  font-size: 1rem;
+  width: 100%;
+  outline: none;
+  padding-left: 1rem;
+  min-width: 160px;
+}
+
+.formGroup input[type="radio"] {
+  margin-right: 0.5rem;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+
+.radioGroup {
+  display: flex;
+  align-items: center;
+}
+
+.finalizeButton {
+  background-color: #4caf50;
+  color: white;
+  padding: 0.3rem 2rem;
+  border: none;
+  border-radius: 40px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.finalizeButton:hover {
+  background-color: #45a049;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  gap: 1rem;
+  border-bottom: 1px solid #ccc;
+}
+
+.clearButton {
+  background-color: #452d91;
+  color: white;
+  padding: 0.8rem 2rem;
+  border: none;
+  border-radius: 40px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.clearButton:hover {
+  background-color: #3e2380;
+}
+
+.select {
+  width: 100%;
+  min-width: 220px;
+  outline: none;
+}
+.select:focus {
+  border-color: #37206d;
+}
+
+@media (width <= 1600px) {
+  .container {
+    padding-bottom: 40px;
+  }
+  .content {
+    flex-direction: column;
+  }
+  .left {
+    flex: 1;
+  }
+  .sales_info {
+    height: calc(50svh - 50px);
+    width: 100%;
+  }
+}

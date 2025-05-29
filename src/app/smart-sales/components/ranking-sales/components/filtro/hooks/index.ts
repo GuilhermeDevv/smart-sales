@@ -1,0 +1,1 @@
+export { useFiltro } from "./useFiltro";
