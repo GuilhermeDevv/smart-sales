@@ -34,7 +34,7 @@ export function CloudView(props: ReturnType<typeof useCloudModel>) {
             rotate={resolveRotate}
           />
         )}
-        <button className={styles.offerButton} onClick={onClick}>
+        <button className={styles.offerButton} onClick={() => onClick(false)}>
           VER OFERTAS
         </button>
       </div>

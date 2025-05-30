@@ -15,9 +15,10 @@ import { useMainModel } from "./use-main-model";
 
 // Loader
 import { MoonLoader } from "react-spinners";
+import { View } from "../../hooks/use-smart-sales-model";
 
 export function MainView(props: ReturnType<typeof useMainModel>) {
-  const { info_actions, currentView, isAdmin } = props;
+  const { info_actions, currentView, isAdmin, changeCurrentView } = props;
 
   return (
     <section
@@ -26,7 +27,11 @@ export function MainView(props: ReturnType<typeof useMainModel>) {
         display: currentView === "main" ? "block" : "none",
       }}
     >
-      <span className={styles.settings}>{isAdmin && <Settings />}</span>
+      <span className={styles.settings}>
+        {isAdmin && (
+          <Settings onClick={() => changeCurrentView(View.CONFIGURATION)} />
+        )}
+      </span>
       <section className={styles.content}>
         <div className={styles.rocco_money}>
           <Image

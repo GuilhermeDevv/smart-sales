@@ -10,6 +10,7 @@ import { useSmartSales } from "./hooks/use-smart-sales-model";
 import { MainViewModel } from "./components/main/main-view-model";
 import { RegisterSalesViewModel } from "./components/register-sales/register-sales-view-model";
 import { RankingSalesViewModel } from "./components/ranking-sales/ranking-sales-view-model";
+import { ConfigurationViewModel } from "./components/config/configuration-view-model";
 
 export default function Smart_sales() {
   const {
@@ -27,11 +28,18 @@ export default function Smart_sales() {
     isAdmin,
     cloud,
     createRegisterSales,
+    sendOfferSales,
+    changeComparatorRanking,
+    comparatorRanking,
     changeCurrentQuery,
     handleReload,
     changeTheme,
     changeCurrentView,
     rankingSales,
+    concorrentes,
+    promocoes,
+    sendConcorrentes,
+    sendPromocoes,
   } = useSmartSales();
 
   return (
@@ -46,9 +54,11 @@ export default function Smart_sales() {
         info_actions={info_actions}
         currentView={currentView}
         isAdmin={isAdmin}
+        changeCurrentView={changeCurrentView}
       />
       {currentView === "smart_sales" && (
         <RegisterSalesViewModel
+          sendOfferSales={sendOfferSales}
           createRegisterSales={createRegisterSales}
           currentView={currentView}
           city={city}
@@ -62,6 +72,8 @@ export default function Smart_sales() {
       )}
 
       <RankingSalesViewModel
+        changeComparatorRanking={changeComparatorRanking}
+        comparatorRanking={comparatorRanking}
         changeCurrentView={changeCurrentView}
         user={user}
         changeCurrentQuery={changeCurrentQuery}
@@ -74,6 +86,17 @@ export default function Smart_sales() {
         handleReload={handleReload}
         cloud={cloud}
       />
+
+      {currentView === "configuracoes" && (
+        <ConfigurationViewModel
+          sendConcorrentes={sendConcorrentes}
+          sendPromocoes={sendPromocoes}
+          promocoes={promocoes}
+          concorrentes={concorrentes}
+          changeCurrentView={changeCurrentView}
+          theme={theme}
+        />
+      )}
     </main>
   );
 }

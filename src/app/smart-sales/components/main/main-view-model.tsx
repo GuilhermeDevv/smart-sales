@@ -2,7 +2,7 @@ import { View } from "../../hooks/use-smart-sales-model";
 import { MainView } from "./main-view";
 import { useMainModel } from "./use-main-model";
 
-type MainViewModelProps = {
+export type MainViewModelProps = {
   info_actions: {
     id: number;
     title: string;
@@ -11,6 +11,7 @@ type MainViewModelProps = {
     action: () => void;
     text_button: string;
   }[];
+  changeCurrentView: (view: View) => void;
   currentView: View;
   isAdmin: boolean;
 };

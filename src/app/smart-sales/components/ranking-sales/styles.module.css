@@ -38,7 +38,7 @@
 .title_light {
   font-size: 2rem;
   font-weight: bold;
-  color: #2f3137; 
+  color: #2f3137;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -115,4 +115,26 @@
 .no_data > p.light {
   font-size: 1.5rem;
   color: #2f3137;
+}
+
+.switchContainer {
+  top: 20px;
+  right: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  position: fixed;
+}
+
+.groupingInfo_light {
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: #170447;
+}
+
+.groupingInfo {
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: #fff;
 }

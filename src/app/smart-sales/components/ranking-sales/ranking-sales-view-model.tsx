@@ -15,6 +15,8 @@ export type RankingSalesViewModelProps = {
   changeCurrentQuery: (query: string) => void;
   handleReload: () => void;
   changeCurrentView: (view: View) => void;
+  comparatorRanking: 0 | 1;
+  changeComparatorRanking: (value: 0 | 1) => void;
 };
 
 export function RankingSalesViewModel(props: RankingSalesViewModelProps) {

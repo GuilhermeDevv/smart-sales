@@ -1,20 +1,8 @@
-import { View } from "../../hooks/use-smart-sales-model";
 
-type MainModelProps = {
-  info_actions: {
-    id: number;
-    title: string;
-    description: string;
-    icon: JSX.Element;
-    action: () => void;
-    text_button: string;
-  }[];
-  currentView: View;
-  isAdmin: boolean;
-};
+import { MainViewModelProps } from "./main-view-model";
 
-export function useMainModel(props: MainModelProps) {
-  const { info_actions, currentView, isAdmin } = props;
+export function useMainModel(props: MainViewModelProps) {
+  const { info_actions, currentView, isAdmin, changeCurrentView } = props;
 
-  return { info_actions, currentView, isAdmin };
+  return { info_actions, currentView, isAdmin, changeCurrentView };
 }

@@ -2,6 +2,8 @@ import { useState, useCallback, useMemo } from "react";
 import Swal from "sweetalert2";
 import { z } from "zod";
 import { RegisterSalesViewModelProps } from "./register-sales-view-model";
+import { useQuery } from "@tanstack/react-query";
+import { get_offers } from "../../services";
 
 interface FormData {
   contractNumberCode: string;
@@ -41,6 +43,7 @@ export function useRegisterSalesViewModel(props: RegisterSalesViewModelProps) {
     operator,
     plan,
     createRegisterSales,
+    sendOfferSales,
     changeCurrentView,
     cloud,
   } = props;
@@ -313,14 +316,35 @@ export function useRegisterSalesViewModel(props: RegisterSalesViewModelProps) {
     [handleChange, stateContractMapping]
   );
 
-  const changeVisibilityCloud = useCallback((): void => {
-    setHasActiveCloud((prev) => !prev);
+  const changeVisibilityCloud = useCallback((v: boolean): void => {
+    setHasActiveCloud(v);
   }, []);
 
-  const changeVisibilityOffer = useCallback((): void => {
-    setHasActiveOffer((prev) => !prev);
-    changeVisibilityCloud();
-  }, [changeVisibilityCloud]);
+  const changeVisibilityOffer = useCallback(
+    (v: boolean): void => {
+      setHasActiveOffer(true);
+      changeVisibilityCloud(v);
+    },
+    [changeVisibilityCloud]
+  );
+  const changeVisibilityOfferReset = useCallback((v: boolean): void => {
+    setHasActiveOffer(v);
+  }, []);
+
+  const isFormValid = useMemo(() => {
+    return (
+      formData.city.trim() !== "" &&
+      formData.contractCode.trim() !== "" &&
+      formData.contractNumberCode.trim() !== "" &&
+      formData.isEligible !== null &&
+      formData.isEligible === true
+    );
+  }, [
+    formData.city,
+    formData.contractCode,
+    formData.contractNumberCode,
+    formData.isEligible,
+  ]);
 
   const handleSubmit = useCallback(
     async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
@@ -352,15 +376,18 @@ export function useRegisterSalesViewModel(props: RegisterSalesViewModelProps) {
         }
 
         setErrors({});
-        console.log("Form data is valid:", result.data);
         createRegisterSales(result.data);
-
-        changeVisibilityCloud();
-        Swal.fire({
-          icon: "success",
-          title: "Sucesso",
-          text: "Os dados foram validados com sucesso!",
-        });
+        changeVisibilityCloud(true);
+        if (!isFormValid) {
+          Swal.fire({
+            icon: "success",
+            title: "Sucesso",
+            text: "Os dados foram validados com sucesso!",
+          }).then(() => {
+            handleReset();
+            changeVisibilityCloud(false);
+          });
+        }
       } catch (error) {
         console.error("An unexpected error occurred:", error);
         Swal.fire({
@@ -370,7 +397,51 @@ export function useRegisterSalesViewModel(props: RegisterSalesViewModelProps) {
         });
       }
     },
-    [formData, registerSalesSchema, createRegisterSales, changeVisibilityCloud]
+    [
+      formData,
+      registerSalesSchema,
+      createRegisterSales,
+      changeVisibilityCloud,
+      isFormValid,
+      handleReset,
+    ]
+  );
+
+  const handleSendOffer = useCallback(
+    (offer: {
+      reason: string;
+      id: string;
+      idSecundary: string | number;
+      idConcorrente: string | number;
+    }): void => {
+      if (offer.id === "Não Aceitou Oferta" && !offer.reason) {
+        Swal.fire({
+          icon: "warning",
+          title: "Atenção",
+          text: "Por favor, selecione um motivo para a recusa da oferta.",
+        });
+        return;
+      }
+
+      const offerData = {
+        ...formData,
+        reason: offer.reason || null,
+        idOferta: offer.id,
+        idSecundary: offer.idSecundary,
+        idConcorrente: offer.idConcorrente,
+
+      };
+      Swal.fire({
+        icon: "success",
+        title: "Oferta Enviada",
+        text: "A oferta foi enviada com sucesso!",
+      }).then(() => {
+        sendOfferSales(offerData);
+        changeVisibilityOfferReset(false);
+        handleReset();
+      });
+    },
+    [formData, handleReset, sendOfferSales, changeVisibilityOfferReset]
   );
 
   const getErrorStyle = useCallback(
@@ -378,6 +449,23 @@ export function useRegisterSalesViewModel(props: RegisterSalesViewModelProps) {
       errors[field] ? { border: "1px solid red" } : {},
     [errors]
   );
+
+  const { data: offers } = useQuery({
+    queryKey: [
+      "get_offers",
+      formData.city,
+      formData.contractCode,
+      formData.contractNumberCode,
+    ],
+    queryFn: () =>
+      get_offers(
+        `cidade=${formData.city}&ddd=${formData.contractCode}&contrato=${formData.contractNumberCode}`
+      ),
+    enabled: isFormValid,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+    staleTime: 1000 * 60 * 5,
+  });
 
   return {
     currentView,
@@ -388,12 +476,16 @@ export function useRegisterSalesViewModel(props: RegisterSalesViewModelProps) {
     plan,
     reasons,
     cloud,
+    offers,
     hasActiveCloud,
+    isFormValid,
     changeVisibilityCloud,
+    handleSendOffer,
     handleChange,
     handleContractCodeChange,
     handleCityChange,
     changeVisibilityOffer,
+
     hasActiveOffer,
     handleReset,
     handleSubmit,

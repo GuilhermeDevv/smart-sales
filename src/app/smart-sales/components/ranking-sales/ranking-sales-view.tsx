@@ -14,8 +14,14 @@ import styles from "./styles.module.css";
 
 // switch
 import { Classic } from "@theme-toggles/react";
-import { CircleArrowLeft, Funnel, RefreshCcw } from "lucide-react";
-
+import {
+  CircleArrowLeft,
+  Funnel,
+  RefreshCcw,
+  UserCog,
+  Users,
+} from "lucide-react";
+import Switch from "react-switch";
 // Loader
 import { MoonLoader } from "react-spinners";
 import { Tooltip } from "@mui/material";
@@ -33,6 +39,8 @@ export function RankingSalesView(props: ReturnType<typeof useRankingModel>) {
     user,
     pariodoInicial,
     periodoFinal,
+    handleChangeFilterForManagers,
+    hasFilterForManagers,
     hasFilterActive,
     changeTheme,
     handleFilterToggle,
@@ -125,7 +133,6 @@ export function RankingSalesView(props: ReturnType<typeof useRankingModel>) {
           </Tooltip>,
         ]}
       />
-
       {user && (
         <Filtro
           setCurrentQuery={(query) => {
@@ -279,7 +286,49 @@ export function RankingSalesView(props: ReturnType<typeof useRankingModel>) {
                 ]
           }
         />
-      )}
+      )}{" "}
+      <div className={styles.switchContainer}>
+        <span
+          className={
+            theme === "dark" ? styles.groupingInfo : styles.groupingInfo_light
+          }
+        >
+          Agrupado por: {hasFilterForManagers ? "Gestor" : "Operador"}
+        </span>
+        <Switch
+          className={styles.switch}
+          checked={hasFilterForManagers}
+          onChange={handleChangeFilterForManagers}
+          onColor={theme !== "dark" ? "#170447" : "#fff"}
+          offColor={theme !== "dark" ? "#170447" : "#fff"}
+          onHandleColor={theme == "dark" ? "#170447" : "#fff"}
+          offHandleColor={theme == "dark" ? "#170447" : "#fff"}
+          checkedIcon={
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "100%",
+              }}
+            >
+              <Users size={20} color={theme !== "dark" ? "#fff" : "#000"} />
+            </div>
+          }
+          uncheckedIcon={
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "100%",
+              }}
+            >
+              <UserCog size={20} color={theme !== "dark" ? "#fff" : "#000"} />
+            </div>
+          }
+        />
+      </div>
     </section>
   );
 }

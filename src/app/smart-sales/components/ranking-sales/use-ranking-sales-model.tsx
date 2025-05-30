@@ -15,7 +15,13 @@ export function useRankingModel(props: RankingSalesViewModelProps) {
     changeCurrentQuery,
     handleReload,
     changeCurrentView,
+    changeComparatorRanking,
+    comparatorRanking,
   } = props;
+
+  const [hasFilterForManagers, setHasFilterForManagers] = useState(
+    !!comparatorRanking
+  );
 
   const [hasFilterActive, setHasFilterActive] = useState(false);
 
@@ -53,6 +59,11 @@ export function useRankingModel(props: RankingSalesViewModelProps) {
     setHasFilterActive(!hasFilterActive);
   }, [hasFilterActive]);
 
+  const handleChangeFilterForManagers = useCallback(() => {
+    setHasFilterForManagers(!hasFilterForManagers);
+    changeComparatorRanking(hasFilterForManagers ? 0 : 1);
+  }, [hasFilterForManagers, changeComparatorRanking]);
+
   return {
     currentView,
     card,
@@ -68,5 +79,7 @@ export function useRankingModel(props: RankingSalesViewModelProps) {
     changeCurrentQuery,
     handleReload,
     changeCurrentView,
+    hasFilterForManagers,
+    handleChangeFilterForManagers,
   };
 }

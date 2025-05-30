@@ -1,13 +1,8 @@
 const permissions = {
   smart_sales: {
-    operador: ["smart_sales", "extrato_vendas", "ranking_vendas"],
-    gestores: ["smart_sales", "extrato_vendas", "ranking_vendas"],
-    super_admin: [
-      "smart_sales",
-      "extrato_vendas",
-      "ranking_vendas",
-      "configuracoes",
-    ],
+    operador: ["smart_sales", "ranking_vendas"],
+    gestores: ["smart_sales", "ranking_vendas", "configuracoes"],
+    super_admin: ["smart_sales", "ranking_vendas", "configuracoes"],
   },
 };
 

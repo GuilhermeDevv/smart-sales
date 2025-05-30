@@ -28,9 +28,11 @@
     "react-dom": "^18",
     "react-multi-select-component": "^4.3.4",
     "react-select": "^5.10.1",
+    "react-switch": "^7.1.0",
     "recharts": "^2.15.3",
     "sharp": "^0.34.1",
     "sweetalert2": "^11.21.0",
+    "xlsx": "^0.18.5",
     "zod": "^3.24.4"
   },
   "devDependencies": {

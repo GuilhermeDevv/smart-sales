@@ -11,7 +11,12 @@ import {
   get_velocity,
   get_ranking_sales,
   get_cloud_sales,
+  get_concorrentes,
+  get_promocoes,
+  send_concorrentes,
+  send_promocoes,
   create_register_sales,
+  send_offer_sales,
 } from "../services";
 import { hasPermission, permissions } from "@/app/config";
 import { useAuthService } from "@/app/core/auth/auth-services";
@@ -22,6 +27,7 @@ export enum View {
   SMART_SALES = "smart_sales",
   RANKING = "ranking_vendas",
   SALES_EXTRACT = "extrato_vendas",
+  CONFIGURATION = "configuracoes",
 }
 
 export enum Theme {
@@ -38,6 +44,7 @@ export function useSmartSales() {
 
   const [theme, setTheme] = useState<Theme>(Theme.DARK);
   const [currentQuery, setCurrentQuery] = useState<string>("");
+  const [comparatorRanking, setComparatorRanking] = useState<0 | 1>(1);
   const dataInicial = searchParams.get("dataInicial");
   const dataFinal = searchParams.get("dataFinal");
 
@@ -89,7 +96,11 @@ export function useSmartSales() {
     setCurrentQuery(query);
   }, []);
 
+  const changeComparatorRanking = useCallback((value: 0 | 1) => {
+    setComparatorRanking(value);
+  }, []);
   // Querys
+
   const { data: user } = useQuery({
     queryKey: ["get_user"],
     queryFn: get_user,
@@ -131,12 +142,13 @@ export function useSmartSales() {
   });
 
   const { data: rankingSales } = useQuery({
-    queryKey: ["get_ranking_sales", currentQuery],
+    queryKey: ["get_ranking_sales", currentQuery, comparatorRanking],
     queryFn: () =>
       get_ranking_sales({
         startDate: pariodoInicial || null,
         endDate: periodoFinal || null,
         cargo: user?.cargoParametro || "",
+        comparator: comparatorRanking,
         query: currentQuery,
       }),
     refetchOnWindowFocus: false,
@@ -161,10 +173,58 @@ export function useSmartSales() {
     staleTime: 1000 * 60 * 5,
   });
 
+  const { data: concorrentes } = useQuery({
+    queryKey: ["get_concorrentes"],
+    queryFn: get_concorrentes,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+    staleTime: 0,
+  });
+
+  const { data: promocoes } = useQuery({
+    queryKey: ["get_promocoes"],
+    queryFn: get_promocoes,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+    staleTime: 0,
+  });
+
   // Mutation
   const { mutate: createRegisterSales } = useMutation({
     mutationFn: (data: unknown) => create_register_sales(data),
     mutationKey: ["create_register_sales"],
+  });
+
+  const { mutate: sendOfferSales } = useMutation({
+    mutationFn: (data: unknown) =>
+      send_offer_sales({
+        ...(typeof data === "object" && data !== null ? data : {}),
+        [`id${user!.cargoParametro}`]: user!.almope,
+      }),
+    mutationKey: ["send_offer_sales"],
+    onSuccess: () => {
+      console.log("Offer sales sent successfully");
+    },
+  });
+
+  const { mutate: sendConcorrentes } = useMutation({
+    mutationFn: (data: unknown) => {
+      return send_concorrentes(data);
+    },
+    mutationKey: ["send_concorrentes"],
+    onSuccess: () => {
+      console.log("Concorrentes sent successfully");
+    },
+  });
+
+  const { mutate: sendPromocoes } = useMutation({
+    mutationFn: (data: unknown) => {
+      return send_promocoes(data);
+    },
+    mutationKey: ["send_promocoes"],
+    onSuccess: () => {
+      console.log("Promoções sent successfully");
+    },
   });
 
   // Invalidate all queries
@@ -263,6 +323,13 @@ export function useSmartSales() {
     cloud,
     changeCurrentView,
     createRegisterSales,
+    sendOfferSales,
+    sendConcorrentes,
+    sendPromocoes,
+    concorrentes,
+    promocoes,
+    comparatorRanking,
+    changeComparatorRanking,
     changeCurrentQuery,
     handleReload,
     changeTheme,

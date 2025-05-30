@@ -5,7 +5,7 @@ import { useCloudModel } from "./use-cloud-model";
 
 export type CloudViewModelProps = {
   cloud: cloudProps | undefined;
-  onClick: () => void;
+  onClick: (v:boolean) => void;
 };
 
 export function CloudViewModel(props: CloudViewModelProps) {

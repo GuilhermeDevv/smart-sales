@@ -24,6 +24,7 @@ export type RegisterSalesViewModelProps = {
   reasons: reasonsProps[] | undefined;
   cloud: cloudProps | undefined;
   createRegisterSales: (data: unknown) => void;
+  sendOfferSales: (data: unknown) => void;
   changeCurrentView: (view: View) => void;
 };
 

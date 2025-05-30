@@ -87,11 +87,44 @@ export type rankingSalesProps = {
   ranking: rankingProps[];
 };
 
-export type cloudProps = string[]
+export type cloudProps = string[];
+
+export type offerProps = {
+  id: string | number;
+  idSecundario: string | number;
+  image: string;
+  title: string;
+  specifications: string[];
+  price: string;
+  anotherOffer?: {
+    idConcorrente: string;
+    image: string;
+    top: string;
+    middle: {
+      left: {
+        label: string;
+        value: string;
+      };
+      right: {
+        label: string;
+        value: string;
+      };
+    };
+    bottom: {
+      label: string;
+      value: string;
+    };
+  };
+  reasons?: {
+    value: string;
+    label: string;
+  }[];
+};
 
 type getRankingSalesProps = {
   startDate?: string | null;
   endDate?: string | null;
+  comparator?: 0 | 1;
   cargo: string;
   query?: string;
 };
@@ -157,6 +190,7 @@ export async function get_velocity() {
 export async function get_ranking_sales({
   startDate,
   endDate,
+  comparator = 0,
   cargo,
   query,
 }: getRankingSalesProps) {
@@ -167,17 +201,75 @@ export async function get_ranking_sales({
       query ||
       `id${cargo}=|${token}|&dataInicial=${
         startDate ?? defaultDate().startDate
-      }&dataFinal=${endDate ?? defaultDate().endDate}`
+      }&dataFinal=${
+        endDate ?? defaultDate().endDate
+      }&cComparativo=${comparator}`
     }`
   );
   return data;
 }
 
-
 export async function get_cloud_sales() {
   if (!api) return;
-  const { data } = await api.get<cloudProps>(
-    `/smart-sales/cloud`
+  const { data } = await api.get<cloudProps>(`/smart-sales/cloud`);
+  return data;
+}
+
+export async function get_offers(query?: string | null) {
+  if (!api) return;
+  const { data } = await api.get<offerProps[]>(`/smart-sales/offers/?${query}`);
+  return data;
+}
+
+export async function send_offer_sales<T>(body: T) {
+  if (!api) return;
+  const { data } = await api.post(
+    `/smart-sales/offers/send?almope=${token}`,
+    body
+  );
+  return data;
+}
+
+export async function get_concorrentes() {
+  if (!api) return;
+  const { data } = await api.get(
+    `/smart-sales/download?almope=${token}&cComparativo=0`
+  );
+  return data;
+}
+
+export async function get_promocoes() {
+  if (!api) return;
+  const { data } = await api.get(
+    `/smart-sales/download?almope=${token}&cComparativo=1`
+  );
+  return data;
+}
+
+export async function send_concorrentes(formData: unknown) {
+  if (!api) return;
+  const { data } = await api.post(
+    `/smart-sales/importa-conco?almope=${token}`,
+    formData,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }
+  );
+  return data;
+}
+
+export async function send_promocoes(formData: unknown) {
+  if (!api) return;
+  const { data } = await api.post(
+    `/smart-sales/importa-promo?almope=${token}`,
+    formData,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }
   );
   return data;
 }

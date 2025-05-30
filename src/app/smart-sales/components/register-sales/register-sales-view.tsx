@@ -22,7 +22,7 @@ import { View } from "@/app/smart-sales/hooks/use-smart-sales-model";
 
 // View
 import { CloudViewModel } from "./components/cloud/cloud-view-model";
-import { OffersView } from "./components/offers/offers-view";
+import { OffersViewModel } from "./components/offers/offers-view-model";
 
 export function RegisterSalesView(
   props: ReturnType<typeof useRegisterSalesViewModel>
@@ -34,12 +34,15 @@ export function RegisterSalesView(
     velocity,
     operator,
     plan,
+    offers,
     handleChange,
     handleContractCodeChange,
     hasActiveCloud,
     handleCityChange,
     hasActiveOffer,
+    isFormValid,
     changeVisibilityOffer,
+    handleSendOffer,
     handleReset,
     handleSubmit,
     cloud,
@@ -398,10 +401,12 @@ export function RegisterSalesView(
           </section>
         </div>
       )}
-      {hasActiveCloud && (
+      {hasActiveCloud && isFormValid && (
         <CloudViewModel cloud={cloud} onClick={changeVisibilityOffer} />
       )}
-      {hasActiveOffer && <OffersView />}
+      {hasActiveOffer && isFormValid && offers && (
+        <OffersViewModel offers={offers} onClick={handleSendOffer} />
+      )}
     </section>
   );
 }
