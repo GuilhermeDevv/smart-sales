@@ -198,9 +198,6 @@
     bottom: 10px;
     left: 20px;
     width: 90%;
-
-   
-    
   }
 }
 
@@ -208,4 +205,51 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* 
+{offer.price && (
+  <span className={styles.price}>{offer.price}</span>
+)}
+{offer.virtua && (
+  <span className={styles.virtua}>
+    {offer.virtua} de internet
+  </span>
+)}
+{offer.tv && (
+  <span className={styles.tv}>{offer.tv} de TV</span>
+)}
+{offer.fone && (
+  <span className={styles.fone}>{offer.fone} de telefone</span>
+)}
+{offer.valor_total && (
+  <span className={styles.valor_total}>
+    {offer.valor_total}
+  </span>
+)} */
+
+.virtua {
+  font-size: 1rem;
+  color: #fff;
+  text-align: left;
+}
+
+.tv {
+  font-size: 1rem;
+  color: #fff;
+  text-align: left;
+}
+
+.fone {
+  font-size: 1rem;
+  color: #fff;
+  text-align: left;
+}
+
+.valor_total {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  text-align: left;
+  text-transform: uppercase;
 }

@@ -407,6 +407,9 @@ export function RegisterSalesView(
       {hasActiveOffer && isFormValid && offers && (
         <OffersViewModel offers={offers} onClick={handleSendOffer} />
       )}
+    
+        {/* <OffersViewModel offers={offers} onClick={handleSendOffer} /> */}
+   
     </section>
   );
 }

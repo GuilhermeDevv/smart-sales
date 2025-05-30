@@ -95,6 +95,10 @@ export type offerProps = {
   image: string;
   title: string;
   specifications: string[];
+  virtua:string,
+  tv: string;
+  fone: string;
+  valor_total: string;
   price: string;
   anotherOffer?: {
     idConcorrente: string;

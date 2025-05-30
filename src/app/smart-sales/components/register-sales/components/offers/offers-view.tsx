@@ -61,6 +61,23 @@ export function OffersView(props: ReturnType<typeof useOffersModel>) {
                 {offer.price && (
                   <span className={styles.price}>{offer.price}</span>
                 )}
+                {offer.virtua && (
+                  <span className={styles.virtua}>
+                    {offer.virtua} 
+                  </span>
+                )}
+                {offer.tv && (
+                  <span className={styles.tv}>{offer.tv} </span>
+                )}
+                {offer.fone && (
+                  <span className={styles.fone}>{offer.fone}</span>
+                )}
+                {offer.valor_total && (
+                  <span className={styles.valor_total}>
+                    {offer.valor_total}
+                  </span>
+                )}
+
                 {offer.title === "Não Aceitou Oferta" && (
                   <Select
                     className={styles.select}
