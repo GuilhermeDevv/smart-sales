@@ -62,13 +62,9 @@ export function OffersView(props: ReturnType<typeof useOffersModel>) {
                   <span className={styles.price}>{offer.price}</span>
                 )}
                 {offer.virtua && (
-                  <span className={styles.virtua}>
-                    {offer.virtua} 
-                  </span>
+                  <span className={styles.virtua}>{offer.virtua}</span>
                 )}
-                {offer.tv && (
-                  <span className={styles.tv}>{offer.tv} </span>
-                )}
+                {offer.tv && <span className={styles.tv}>{offer.tv} </span>}
                 {offer.fone && (
                   <span className={styles.fone}>{offer.fone}</span>
                 )}
@@ -98,50 +94,51 @@ export function OffersView(props: ReturnType<typeof useOffersModel>) {
                 </button>
               </section>
 
-              {offer.title !== "Não Aceitou Oferta" && (
-                <aside className={styles.another_offer}>
-                  <div className={styles.top}>
-                    <Image
-                      src={
-                        offer?.anotherOffer?.image === "Oi"
-                          ? oi
-                          : offer?.anotherOffer?.image === "Tim"
-                          ? tim
-                          : vivo
-                      }
-                      alt={offer?.anotherOffer?.top as unknown as string}
-                      width={
-                        offer?.anotherOffer?.image === "Tim"
-                          ? 80
-                          : offer?.anotherOffer?.image === "Vivo"
-                          ? 80
-                          : 40
-                      }
-                      height={
-                        offer?.anotherOffer?.image === "Tim"
-                          ? 20
-                          : offer?.anotherOffer?.image === "Vivo"
-                          ? 28
-                          : 40
-                      }
-                    />
-                  </div>
-                  <div className={styles.middle}>
-                    <div className={styles.middle_left}>
-                      <span>{offer?.anotherOffer?.middle.left.label}</span>
-                      <span>{offer?.anotherOffer?.middle.left.value}</span>
+              {offer.title !== "Não Aceitou Oferta" &&
+                offer.anotherOffer?.image !== "N/A" && (
+                  <aside className={styles.another_offer}>
+                    <div className={styles.top}>
+                      <Image
+                        src={
+                          offer?.anotherOffer?.image === "oi"
+                            ? oi
+                            : offer?.anotherOffer?.image === "tim"
+                            ? tim
+                            : vivo
+                        }
+                        alt={offer?.anotherOffer?.top as unknown as string}
+                        width={
+                          offer?.anotherOffer?.image === "tim"
+                            ? 80
+                            : offer?.anotherOffer?.image === "vivo"
+                            ? 80
+                            : 40
+                        }
+                        height={
+                          offer?.anotherOffer?.image === "tim"
+                            ? 20
+                            : offer?.anotherOffer?.image === "vivo"
+                            ? 28
+                            : 40
+                        }
+                      />
                     </div>
-                    <div className={styles.middle_right}>
-                      <span>{offer?.anotherOffer?.middle.right.value}</span>
-                      <span>{offer?.anotherOffer?.middle.right.label}</span>
+                    <div className={styles.middle}>
+                      <div className={styles.middle_left}>
+                        <span>{offer?.anotherOffer?.middle.left.label}</span>
+                        <span>{offer?.anotherOffer?.middle.left.value}</span>
+                      </div>
+                      <div className={styles.middle_right}>
+                        <span>{offer?.anotherOffer?.middle.right.value}</span>
+                        <span>{offer?.anotherOffer?.middle.right.label}</span>
+                      </div>
                     </div>
-                  </div>
-                  <div className={styles.bottom}>
-                    <span>{offer?.anotherOffer?.bottom.label}</span>
-                    <span>{offer?.anotherOffer?.bottom.value}</span>
-                  </div>
-                </aside>
-              )}
+                    <div className={styles.bottom}>
+                      <span>{offer?.anotherOffer?.bottom.label}</span>
+                      <span>{offer?.anotherOffer?.bottom.value}</span>
+                    </div>
+                  </aside>
+                )}
             </>
           )}
         </div>

@@ -52,6 +52,8 @@ export function useRegisterSalesViewModel(props: RegisterSalesViewModelProps) {
 
   const [hasActiveOffer, setHasActiveOffer] = useState<boolean>(false);
 
+  const [isRegistrationComplete, setIsRegistrationComplete] = useState(false);
+
   const stateContractMapping = useMemo(() => {
     return city?.reduce((acc, item) => {
       acc[item.Cidade] = item.DDD;
@@ -261,6 +263,7 @@ export function useRegisterSalesViewModel(props: RegisterSalesViewModelProps) {
       mobileLineOperator: "",
     });
     setErrors({});
+    setIsRegistrationComplete(false);
   }, []);
 
   const handleChange = useCallback(
@@ -377,6 +380,7 @@ export function useRegisterSalesViewModel(props: RegisterSalesViewModelProps) {
 
         setErrors({});
         createRegisterSales(result.data);
+        setIsRegistrationComplete(true);
         changeVisibilityCloud(true);
         if (!isFormValid) {
           Swal.fire({
@@ -429,7 +433,6 @@ export function useRegisterSalesViewModel(props: RegisterSalesViewModelProps) {
         idOferta: offer.id,
         idSecundary: offer.idSecundary,
         idConcorrente: offer.idConcorrente,
-
       };
       Swal.fire({
         icon: "success",
@@ -461,10 +464,10 @@ export function useRegisterSalesViewModel(props: RegisterSalesViewModelProps) {
       get_offers(
         `cidade=${formData.city}&ddd=${formData.contractCode}&contrato=${formData.contractNumberCode}`
       ),
-    enabled: isFormValid,
-    refetchOnWindowFocus: false,
-    refetchOnReconnect: false,
-    staleTime: 1000 * 60 * 5,
+    enabled: isRegistrationComplete,
+    refetchOnWindowFocus: true,
+    refetchOnReconnect: true,
+    staleTime: 0,
   });
 
   return {

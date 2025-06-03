@@ -190,72 +190,72 @@ export function useFiltro({
   useEffect(() => {
     async function loadData() {
       if (operador && operador[0]?.value != "-1") {
-        await onBlurOperador(operador, false);
+        await onBlurOperador(operador, true);
         return;
       }
 
       if (supervisor && supervisor[0]?.value != "-1") {
-        await blurSupervisor(supervisor, false);
+        await blurSupervisor(supervisor, true);
         return;
       }
 
       if (coordenador && coordenador[0]?.value != "-1") {
-        await onBlurCoordenador(coordenador, false);
+        await onBlurCoordenador(coordenador, true);
         return;
       }
 
       if (gerente && gerente[0]?.value != "-1") {
-        await onBlurGerente(gerente, false);
+        await onBlurGerente(gerente, true);
         return;
       }
 
       if (gerenteGeral && gerenteGeral[0]?.value != "-1") {
-        await onBlurGerenteGeral(gerenteGeral, false);
+        await onBlurGerenteGeral(gerenteGeral, true);
         return;
       }
 
       if (superintendente && superintendente[0]?.value != "-1") {
-        await onBlurSuperintendente(superintendente, false);
+        await onBlurSuperintendente(superintendente, true);
         return;
       }
 
       if (diretor && diretor[0]?.value != "-1") {
-        await onBlurDiretor(diretor, false);
+        await onBlurDiretor(diretor, true);
         return;
       }
 
       if (diretoriaGeral && diretoriaGeral[0]?.value != "-1") {
-        await onBlurDiretoriaGeral(diretoriaGeral, false);
+        await onBlurDiretoriaGeral(diretoriaGeral, true);
         return;
       }
 
       if (campanha && campanha[0]?.value != "-1") {
-        await onBlurCampanha(campanha, false);
+        await onBlurCampanha(campanha, true);
         return;
       }
 
       if (programa && programa[0]?.value != "-1") {
-        await onBlurPrograma(programa, false);
+        await onBlurPrograma(programa, true);
         return;
       }
 
       if (grupoPrograma && grupoPrograma[0]?.value != "-1") {
-        await onBlurGrupoProgramas(grupoPrograma, false);
+        await onBlurGrupoProgramas(grupoPrograma, true);
         return;
       }
 
       if (centroDeCusto && centroDeCusto[0]?.value != "-1") {
-        await onBlurCentroDeCusto(centroDeCusto, false);
+        await onBlurCentroDeCusto(centroDeCusto, true);
         return;
       }
 
       if (site && site[0]?.value != "-1") {
-        await onBlurSite(site, false);
+        await onBlurSite(site, true);
         return;
       }
 
       if (cliente && cliente[0]?.value != "-1") {
-        await onBlurCliente(cliente, false);
+        await onBlurCliente(cliente, true);
         return;
       }
     }
