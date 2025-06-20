@@ -1,5 +1,5 @@
 .container {
-  width: fit-content;
+  width: 100%;
   max-height: 100%;
   border-collapse: collapse;
   background-color: #170447;
@@ -12,7 +12,7 @@
 }
 
 .container_light {
-  width: fit-content;
+  width: 100%;
   max-height: 100%;
   border-collapse: collapse;
   background-color: #fff;
@@ -24,7 +24,8 @@
   font-weight: bold;
 }
 
-.content_table {
+.content_table,
+.content_table_light {
   font-weight: bold;
   width: 100%;
   border-collapse: collapse;
@@ -32,49 +33,29 @@
   color: #fff;
   border-radius: 20px;
   overflow-y: hidden;
-  display: block;
-  min-height: 100%;
+  overflow-x: auto;
+  min-width: 800px;
   height: 100%;
+  display: table;
+  table-layout: fixed;
 }
 
 .content_table_light {
-  font-weight: bold;
-  width: 100%;
-  border-collapse: collapse;
   background-color: #fff;
   color: #2f3137;
-  border-radius: 20px;
-  overflow-y: hidden;
-  display: block;
-  min-height: 100%;
-  height: 100%;
 }
 
-.content_table thead {
-  font-weight: bold;
-  display: table;
-  width: 100%;
-  table-layout: fixed;
-}
-
+.content_table thead,
 .content_table_light thead {
   font-weight: bold;
-  display: table;
+  display: table-header-group;
   width: 100%;
   table-layout: fixed;
 }
 
-.content_table tbody {
-  display: block;
-  font-weight: bold;
-  width: 100%;
-  overflow-y: auto;
-  height: calc(100% - 60px);
-  text-wrap: nowrap;
-}
-
+.content_table tbody,
 .content_table_light tbody {
-  display: block;
+  display: table-row-group;
   font-weight: bold;
   width: 100%;
   overflow-y: auto;
@@ -82,14 +63,19 @@
   text-wrap: nowrap;
 }
 
-.content_table tbody tr {
-  display: flex;
+.content_table tbody tr,
+.content_table_light tbody tr {
+  display: table-row;
   font-weight: bold;
 }
 
-.content_table_light tbody tr {
-  display: flex;
-  font-weight: bold;
+.table_header,
+.table_header_light,
+.table_cell,
+.table_cell_light {
+
+  text-align: center;
+  padding: 20px 26px;
 }
 
 .table_header {
@@ -100,9 +86,6 @@
   background-color: #170447;
   color: #fff;
   border-bottom: solid 2px rgb(34, 20, 125);
-  padding: 20px 26px;
-  text-align: center;
-  width: fit-content;
 }
 .table_header_light {
   font-weight: bold;
@@ -112,20 +95,14 @@
   background-color: #fff;
   color: #2f3137;
   border-bottom: solid 2px #ccc;
-  padding: 20px 26px;
-  text-align: center;
-  width: fit-content;
 }
 
 .table_cell {
   border-bottom: solid 2px rgb(34, 20, 125);
   font-weight: bold;
   border-right: none;
-  padding: 20px 26px;
-  text-align: center;
   background-color: #170447;
   color: #fff;
-  width: 100%;
   text-transform: capitalize;
 }
 
@@ -154,11 +131,8 @@
   border-bottom: solid 2px #ccc;
   font-weight: bold;
   border-right: none;
-  padding: 20px 26px;
-  text-align: center;
   background-color: #fff;
   color: #2f3137;
-  width: 100%;
   text-transform: capitalize;
 }
 
@@ -177,4 +151,10 @@
 
 .content_table_light tbody::-webkit-scrollbar-track {
   background-color: #fff;
+}
+
+.container,
+.container_light {
+  width: 100%;
+  overflow-x: auto;
 }
