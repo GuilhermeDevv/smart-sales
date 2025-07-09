@@ -1,38 +1,69 @@
 import { offerProps } from "@/app/smart-sales/services";
-import { useState } from "react";
+import { useMemo, useState, useCallback } from "react";
 import { offersViewModelProps } from "./offers-view-model";
 
 export function useOffersModel(props: offersViewModelProps) {
-  const { offers, onClick } = props;
+  const {
+    offers,
+    onClick,
+    localVenda,
+    tabulacao,
+    tipos,
+    isRegistrationComplete,
+    send_vendas,
+  } = props;
 
   const [selectedReason, setSelectedReason] = useState<string | null>(null);
 
-  const handleClick = (offer: offerProps) => {
-    if (offer.title === "Não Aceitou Oferta" && selectedReason) {
+  const [selectedOffer, setSelectedOffer] = useState<offerProps | null>(null);
+
+  
+  const handleClick = useCallback(
+    (offer: offerProps) => {
+      setSelectedOffer(offer);
+    },
+    [setSelectedOffer]
+  );
+
+  const handleSendOffer = useCallback(() => {
+    if (selectedOffer?.title === "Não Aceitou Oferta" && selectedReason) {
       onClick?.({
         reason: selectedReason,
         id: "-1",
-        idSecundary: offer.idSecundario,
-        idConcorrente: offer.anotherOffer?.idConcorrente || "",
+        idSecundary: selectedOffer.idSecundario,
+        idConcorrente: selectedOffer.anotherOffer?.idConcorrente || "",
       });
     } else {
       onClick?.({
         reason: "",
-        id: offer.id.toString(),
-        idSecundary: offer.idSecundario,
-        idConcorrente: offer.anotherOffer?.idConcorrente || "",
+        id: selectedOffer?.id.toString() || "",
+        idSecundary: selectedOffer?.idSecundario || "",
+        idConcorrente: selectedOffer?.anotherOffer?.idConcorrente || "",
       });
     }
-  };
+  }, [selectedOffer, selectedReason, onClick]);
 
-  const handleReasonChange = (selectedOption: string) => {
+  const handleReasonChange = useCallback((selectedOption: string) => {
     setSelectedReason(selectedOption);
-  };
+  }, []);
+
+  const openAlert = useMemo(() => {
+    return isRegistrationComplete && selectedOffer !== null;
+  }, [isRegistrationComplete, selectedOffer]);
+
+
 
   return {
+    openAlert,
     selectedReason,
     handleClick,
     handleReasonChange,
+    handleSendOffer,
+    selectedOffer,
     offers,
+    localVenda,
+    tabulacao,
+    tipos,
+    send_vendas,
   };
 }

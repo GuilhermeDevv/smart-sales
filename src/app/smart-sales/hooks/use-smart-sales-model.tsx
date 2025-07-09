@@ -17,6 +17,8 @@ import {
   send_promocoes,
   create_register_sales,
   send_offer_sales,
+  send_vendas,
+  sendVendasProps,
 } from "../services";
 import { hasPermission, permissions } from "@/app/config";
 import { useAuthService } from "@/app/core/auth/auth-services";
@@ -207,6 +209,12 @@ export function useSmartSales() {
     },
   });
 
+  const { mutate: sendVendas } = useMutation({
+    mutationFn: (data: sendVendasProps) => {
+      return send_vendas(data);
+    },
+  });
+
   const { mutate: sendConcorrentes } = useMutation({
     mutationFn: (data: unknown) => {
       return send_concorrentes(data);
@@ -324,6 +332,7 @@ export function useSmartSales() {
     changeCurrentView,
     createRegisterSales,
     sendOfferSales,
+    sendVendas,
     sendConcorrentes,
     sendPromocoes,
     concorrentes,

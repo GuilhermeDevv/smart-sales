@@ -45,9 +45,14 @@ export function RegisterSalesView(
     handleSendOffer,
     handleReset,
     handleSubmit,
+    isRegistrationComplete,
+    localVenda,
+    tabulacao,
+    tipos,
     cloud,
     getErrorStyle,
     changeCurrentView,
+    send_vendas
   } = props;
 
   return (
@@ -405,11 +410,16 @@ export function RegisterSalesView(
         <CloudViewModel cloud={cloud} onClick={changeVisibilityOffer} />
       )}
       {hasActiveOffer && isFormValid && offers && (
-        <OffersViewModel offers={offers} onClick={handleSendOffer} />
+        <OffersViewModel
+          offers={offers}
+          localVenda={localVenda ?? []}
+          tabulacao={tabulacao ?? []}
+          tipos={tipos ?? []}
+          onClick={handleSendOffer}
+          send_vendas={send_vendas}
+          isRegistrationComplete={isRegistrationComplete}
+        />
       )}
-    
-        {/* <OffersViewModel offers={offers} onClick={handleSendOffer} /> */}
-   
     </section>
   );
 }

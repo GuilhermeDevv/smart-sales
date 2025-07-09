@@ -67,6 +67,21 @@ export type velocityProps = {
   value: string;
 };
 
+export type tipoProps = {
+  label: string;
+  value: string;
+};
+
+export type localVendaProps = {
+  label: string;
+  value: string;
+};
+
+export type tabulacaoProps = {
+  label: string;
+  value: string;
+};
+
 export type cardProps = {
   title: string;
   value: string;
@@ -95,7 +110,7 @@ export type offerProps = {
   image: string;
   title: string;
   specifications: string[];
-  virtua:string,
+  virtua: string;
   tv: string;
   fone: string;
   valor_total: string;
@@ -275,5 +290,55 @@ export async function send_promocoes(formData: unknown) {
       },
     }
   );
+  return data;
+}
+
+export async function get_tipos(cContrato: string) {
+  if (!api) return;
+  const { data } = await api.get<tipoProps[]>(
+    `/smart-sales/tipo?almope=${token}&cContrato=${cContrato}`
+  );
+  return data;
+}
+
+export async function get_localVenda(cContrato: string) {
+  if (!api) return;
+  const { data } = await api.get<localVendaProps[]>(
+    `/smart-sales/local-venda?almope=${token}&cContrato=${cContrato}`
+  );
+  return data;
+}
+
+export async function get_tabulacao(cContrato: string) {
+  if (!api) return;
+  const { data } = await api.get<tabulacaoProps[]>(
+    `/smart-sales/tabulacao?almope=${token}&cContrato=${cContrato}`
+  );
+  return data;
+}
+
+export type sendVendasProps = {
+  cContrato: string;
+  cTipo: string;
+  localVenda: string;
+  tabulacaoIride: string;
+  contato: string
+};
+
+export async function send_vendas({
+  cContrato,
+  cTipo,
+  localVenda,
+  tabulacaoIride,
+  contato,
+}: sendVendasProps) {
+  if (!api) return;
+  const { data } = await api.post(`/smart-sales/vendas?almope=${token}`, {
+    cContrato,
+    cTipo,
+    localVenda,
+    tabulacaoIride,
+    contato,
+  });
   return data;
 }

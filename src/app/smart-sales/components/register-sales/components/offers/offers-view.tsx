@@ -12,8 +12,21 @@ import Select from "react-select";
 
 import { useOffersModel } from "./use-offers-model";
 
+import { AlertViewModel } from "./components/alert/alert-view-model";
+
 export function OffersView(props: ReturnType<typeof useOffersModel>) {
-  const { offers, handleClick, handleReasonChange } = props;
+  const {
+    offers,
+    handleClick,
+    handleReasonChange,
+    handleSendOffer,
+    selectedOffer,
+    send_vendas,
+    localVenda,
+    tabulacao,
+    tipos,
+    openAlert,
+  } = props;
 
   return (
     <div className={styles.container}>
@@ -143,6 +156,17 @@ export function OffersView(props: ReturnType<typeof useOffersModel>) {
           )}
         </div>
       ))}
+
+      {openAlert && (
+        <AlertViewModel
+          localVenda={localVenda}
+          tabulacao={tabulacao}
+          tipos={tipos}
+          sendOfferSales={handleSendOffer}
+          send_vendas={send_vendas}
+          cContrato={selectedOffer?.id?.toString() || "-1"}
+        />
+      )}
     </div>
   );
 }

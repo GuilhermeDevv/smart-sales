@@ -3,7 +3,13 @@ import Swal from "sweetalert2";
 import { z } from "zod";
 import { RegisterSalesViewModelProps } from "./register-sales-view-model";
 import { useQuery } from "@tanstack/react-query";
-import { get_offers } from "../../services";
+import {
+  get_offers,
+  get_tabulacao,
+  get_localVenda,
+  get_tipos,
+  send_vendas,
+} from "../../services";
 
 interface FormData {
   contractNumberCode: string;
@@ -434,15 +440,10 @@ export function useRegisterSalesViewModel(props: RegisterSalesViewModelProps) {
         idSecundary: offer.idSecundary,
         idConcorrente: offer.idConcorrente,
       };
-      Swal.fire({
-        icon: "success",
-        title: "Oferta Enviada",
-        text: "A oferta foi enviada com sucesso!",
-      }).then(() => {
-        sendOfferSales(offerData);
-        changeVisibilityOfferReset(false);
-        handleReset();
-      });
+
+      sendOfferSales(offerData);
+      changeVisibilityOfferReset(false);
+      handleReset();
     },
     [formData, handleReset, sendOfferSales, changeVisibilityOfferReset]
   );
@@ -470,6 +471,48 @@ export function useRegisterSalesViewModel(props: RegisterSalesViewModelProps) {
     staleTime: 0,
   });
 
+  const { data: localVenda } = useQuery({
+    queryKey: [
+      "get_localVenda",
+      formData.city,
+      formData.contractCode,
+      formData.contractNumberCode,
+    ],
+    queryFn: () => get_localVenda(formData.contractNumberCode),
+    enabled: isRegistrationComplete,
+    refetchOnWindowFocus: true,
+    refetchOnReconnect: true,
+    staleTime: 0,
+  });
+
+  const { data: tabulacao } = useQuery({
+    queryKey: [
+      "get_tabulacao",
+      formData.city,
+      formData.contractCode,
+      formData.contractNumberCode,
+    ],
+    queryFn: () => get_tabulacao(formData.contractNumberCode),
+    enabled: isRegistrationComplete,
+    refetchOnWindowFocus: true,
+    refetchOnReconnect: true,
+    staleTime: 0,
+  });
+
+  const { data: tipos } = useQuery({
+    queryKey: [
+      "get_tipos",
+      formData.city,
+      formData.contractCode,
+      formData.contractNumberCode,
+    ],
+    queryFn: () => get_tipos(formData.contractNumberCode),
+    enabled: isRegistrationComplete,
+    refetchOnWindowFocus: true,
+    refetchOnReconnect: true,
+    staleTime: 0,
+  });
+
   return {
     currentView,
     formData,
@@ -488,7 +531,11 @@ export function useRegisterSalesViewModel(props: RegisterSalesViewModelProps) {
     handleContractCodeChange,
     handleCityChange,
     changeVisibilityOffer,
-
+    send_vendas,
+    localVenda,
+    tabulacao,
+    tipos,
+    isRegistrationComplete,
     hasActiveOffer,
     handleReset,
     handleSubmit,
